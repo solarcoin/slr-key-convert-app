@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SolarCoin Key Converter</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body style="background-image:url('img/background.png');">
+  <div style="display: flex; flex: 0 1 100%; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+    <h1>SolarCoin Key Converter</h1>
+    
+    <form id="keyform">
+      <div>
+        <h3 class="username">Input your private key:</h3>
+      </div>
+      <div><input id="privatekey" class="form-control text-input" placeholder="Private key" style="width: 500px; margin-bottom: .25rem;"></div>
+      
+      <input id="submit" type="submit" value="Convert">
+   </form>
+   <form id="outputform">
+    <h3 class="username">Conversion results:</h3>
+    <div style="padding-bottom: .25rem"><label>Your private key to be imported into your Ethereum wallet:</label></div>
+    <div><input id="ethprivkey" class="form-control text-input" disabled=true style="width: 500px; margin-bottom: .5rem;"></div>
+    <div style="padding-bottom: .25rem"><label>Your public key:</label></div>
+    <div><input id="pubkey" class="form-control text-input" disabled=true style="width: 500px; margin-bottom: .5rem;"></div>
+    <div style="padding-bottom: .25rem"><label>Your new Ethereum address:</label></div>
+    <div><input id="ethaddress" class="form-control text-input" disabled=true style="width: 500px; margin-bottom: .5rem;"></div>
+    <div style="padding-bottom: .25rem"><label>Your old SLR address:</label></div>
+    <div><input id="slraddress" class="form-control text-input" disabled=true style="width: 500px; margin-bottom: .5rem;"></div>
+ </form>
+</div>
+</body>
+<script>
+  const submitFormButton = document.querySelector("#keyform");
+  submitFormButton.addEventListener("submit", function(event){
+    event.preventDefault();   
+    let privatekey = document.getElementById("privatekey").value;
+    const response = window.api.send("convert-key-request", privatekey);
+  });
+
+  window.api.receive("convert-key-response", (data) => {
+      document.getElementById("ethprivkey").value = data.ethprivkey;
+      document.getElementById("pubkey").value = data.pubkey;
+      document.getElementById("ethaddress").value = data.ethaddress;
+      document.getElementById("slraddress").value = data.slraddress;
+  });
+  
+</script>
+</html>

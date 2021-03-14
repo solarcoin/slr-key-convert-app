@@ -1,0 +1,65 @@
+{
+  "name": "slr-key-convert-app",
+  "productName": "SolarCoinKeyConverter",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "@electron-forge/maker-dmg": "^6.0.0-beta.54",
+    "bitcoinjs-lib": "^5.2.0",
+    "bs58": "^4.0.1",
+    "bs58check": "^2.1.2",
+    "crypto": "^1.0.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "ethereumjs-util": "^7.0.7",
+    "ethereumjs-wallet": "^1.0.1",
+    "keccak256": "^1.0.2"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^12.0.0"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "make-mac": "npx @electron-forge/cli make --platform darwin"
+  },
+  "author": "justin@solarcoin.org",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "SolarCoinKeyConverter"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "background": "./img/background.png",
+            "format": "ULFO"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": ["win"]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
